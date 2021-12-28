@@ -88,6 +88,5 @@ public class Leetcode912 {
         System.out.println(Arrays.toString(Solution.heapSort(test1Array)));
         System.out.println(Arrays.toString(Solution.mergeSort(test1Array)));
         System.out.println(Arrays.toString(Solution.quickSort(test1Array)));
-
     }
 }
