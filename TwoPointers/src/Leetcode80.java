@@ -1,17 +1,19 @@
 import java.util.Arrays;
 /**
- * Leetcode 26 - Remove Duplicates from Sorted Array
+ * Leetcode 80 - Remove Duplicates from Sorted Array II
  */
-public class Leetcode26 {
+public class Leetcode80 {
     public int removeDuplicates(int[] nums) {
-        int slow = 0, fast = 0;
+        if (nums.length <= 2) return nums.length;
+        int slow = 2, fast = 2;
         while (fast < nums.length) {
-            if (nums[slow] != nums[fast]) {
-                swap(nums, ++slow, fast);
+            if (nums[slow - 1] == nums[fast] && nums[slow - 2] == nums[fast]) {
+                fast++;
+            } else {
+                swap(nums, slow++, fast++);
             }
-            fast++;
         }
-        return ++slow;
+        return slow;
     }
 
     private void swap(int[] nums, int i, int j) {
@@ -21,7 +23,7 @@ public class Leetcode26 {
     }
 
     public static void main(String[] args) {
-        Leetcode26 Solution = new Leetcode26();
+        Leetcode80 Solution = new Leetcode80();
 
         int[] test1Array = new int[]{0, 1, 2, 2, 3, 3, 3, 4, 5, 5, 5, 5};
         System.out.println(Solution.removeDuplicates(test1Array));
