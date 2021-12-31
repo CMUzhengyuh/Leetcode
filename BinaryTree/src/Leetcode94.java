@@ -1,3 +1,7 @@
+import com.sun.source.tree.BinaryTree;
+import com.sun.source.tree.ExpressionTree;
+import com.sun.source.tree.TreeVisitor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -9,7 +13,7 @@ public class Leetcode94 {
     /**
      * Iterative Inorder Traversal
      */
-    public List<Integer> inorderTraversal(TreeNode root) {
+    public List<Integer> iterativeInorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<Integer>();
 
         Stack<TreeNode> stack = new Stack<TreeNode>();
@@ -34,6 +38,24 @@ public class Leetcode94 {
         }
 
         return list;
+    }
+
+    /**
+     * Recursive Inorder Traversal
+     */
+    public List<Integer> recursiveInorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        traversal(root, list);
+        return list;
+    }
+
+    private void traversal(TreeNode root, List<Integer> list) {
+        if (root == null) {
+            return;
+        }
+        traversal(root.left, list);
+        list.add(root.val);
+        traversal(root.right, list);
     }
 
     public class TreeNode {
