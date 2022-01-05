@@ -25,10 +25,10 @@ public class Leetcode86 {
     public static void main(String[] args) {
         Leetcode86 Solution = new Leetcode86();
 
-        ListNode testLinkList = new ListNode(8, new ListNode(7, new ListNode(6, new ListNode(5, new ListNode(4, new ListNode(3, new ListNode(2, new ListNode(1))))))));
-        System.out.println(Solution.partition(testLinkList, 2).toString());
-        System.out.println(Solution.partition(testLinkList, 4).toString());
-        System.out.println(Solution.partition(testLinkList, 6).toString());
+        ListNode testLinkedList = new ListNode(8, new ListNode(7, new ListNode(6, new ListNode(5, new ListNode(4, new ListNode(3, new ListNode(2, new ListNode(1))))))));
+        System.out.println(Solution.partition(testLinkedList, 2).toString());
+        System.out.println(Solution.partition(testLinkedList, 4).toString());
+        System.out.println(Solution.partition(testLinkedList, 6).toString());
 
     }
 }
