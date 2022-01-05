@@ -11,6 +11,9 @@ public class Leetcode234 {
             slow = slow.next;
             fast = fast.next.next;
         }
+        /**
+         * Circumvent the number in the middle
+         */
         if (fast != null) {
             slow = slow.next;
         }
