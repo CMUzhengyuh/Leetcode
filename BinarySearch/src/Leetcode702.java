@@ -4,13 +4,6 @@ import java.lang.module.ResolutionException;
  * Leetcode 702 - Search in a Sorted Array of Unknown Size
  */
 public class Leetcode702 {
-    /**
-     * // This is ArrayReader's API interface.
-     * // You should not implement it, or speculate about its implementation
-     * interface ArrayReader {
-     *     public int get(int index) {}
-     * }
-     */
     public int search(ArrayReader reader, int target) {
         int right = 1;
         while (reader.get(right) < target) {
