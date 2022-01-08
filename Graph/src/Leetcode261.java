@@ -27,7 +27,6 @@ public class Leetcode261 {
         int root = n;
         Set<Integer> set = new HashSet<>();
         for (int[] edge : edges) {
-
             if (find(edge[0]) != find(edge[1])) {
                 union(edge[0], edge[1]);
                 root--;
