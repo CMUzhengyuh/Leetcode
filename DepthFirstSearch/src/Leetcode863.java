@@ -8,6 +8,7 @@ import java.util.Map;
  */
 public class Leetcode863 {
     Map<Integer, TreeNode> parents = new HashMap<Integer, TreeNode>();
+    List<Integer> ans = new ArrayList<Integer>();
 
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
         findParents(root);
