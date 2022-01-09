@@ -1,6 +1,5 @@
 import java.util.Collections;
 import java.util.PriorityQueue;
-
 /**
  * Leetcode 295 - Find Median from Data Stream
  */
