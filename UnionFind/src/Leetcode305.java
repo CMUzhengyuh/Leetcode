@@ -29,7 +29,7 @@ public class Leetcode305 {
         for (int[] position : positions) {
             int curX = position[0], curY = position[1];
             /**
-             * Check if land already existed
+             * Check if land  already existed
              */
             if (unionFind[curX * n + curY] < 0) {
                 unionFind[curX * n + curY] = curX * n + curY;
