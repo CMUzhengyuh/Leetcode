@@ -5,9 +5,6 @@ import java.util.List;
  * Leetcode 305 - Number of Island II
  */
 public class Leetcode305 {
-}
-
-class Solution {
 
     private int[] unionFind;
 
@@ -31,6 +28,9 @@ class Solution {
         Arrays.fill(unionFind, -1);
         for (int[] position : positions) {
             int curX = position[0], curY = position[1];
+            /**
+             * Check if land already existed
+             */
             if (unionFind[curX * n + curY] < 0) {
                 unionFind[curX * n + curY] = curX * n + curY;
                 res++;
@@ -46,4 +46,12 @@ class Solution {
         }
         return list;
     }
+
+    public static void main(String[] args) {
+        Leetcode305 Solution = new Leetcode305();
+
+        int[][] test1Positions = new int[][]{{0, 0}, {0, 1}, {1, 1}, {2, 2}};
+        System.out.println(Solution.numIslands2(3, 3,test1Positions));
+    }
+
 }
