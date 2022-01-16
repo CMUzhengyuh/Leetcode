@@ -15,7 +15,7 @@ public class Leetcode567 {
          */
         int counter = l1;
         /**
-         * Initial a sliding window of length l1
+         * Initialize a sliding window of length l1
          */
         while (right < l1) {
             if (count[s2.charAt(right++) - 'a']-- > 0) {

@@ -13,7 +13,14 @@ public class Leetcode480 {
                 res[i] = nums[i] * 1.0;
             }
         }
+        /**
+         * minHeap of length ceiling(k / 2) to record the smaller half in sliding window
+         * maxHeap of length floor(k / 2) to record the larger half in the sliding window
+         */
         PriorityQueue<Integer> minHeap = new PriorityQueue<>(Collections.reverseOrder()), maxHeap = new PriorityQueue<>();
+        /**
+         * Initialize a sliding window of length k
+         */
         for (int i = 0; i < k; i++) {
             minHeap.add(nums[i]);
         }
@@ -21,14 +28,27 @@ public class Leetcode480 {
             maxHeap.add(minHeap.poll());
         }
         for (int i = k; i < l; i++) {
+            /**
+             * DEBUG: int type overflow
+             * REASON: [2147483647, 2147483647], k = 2
+             */
             double median = k % 2 == 0 ? ((double)minHeap.peek() + maxHeap.peek()) / 2.0 : minHeap.peek();
             res[index++] = median;
+            /**
+             * Pop the oldest element
+             */
             if (minHeap.size() > 0 && nums[i - k] <= minHeap.peek()) {
                 minHeap.remove(nums[i - k]);
             } else maxHeap.remove(nums[i - k]);
+            /**
+             * Add the newest element
+             */
             if (minHeap.size() > 0 && nums[i] <= minHeap.peek()) {
                 minHeap.add(nums[i]);
             } else maxHeap.add(nums[i]);
+            /**
+             * Adjust the size of two heaps
+             */
             if (minHeap.size() >= maxHeap.size() + 2) {
                 maxHeap.add(minHeap.poll());
             }
@@ -36,6 +56,9 @@ public class Leetcode480 {
                 minHeap.add(maxHeap.poll());
             }
         }
+        /**
+         * Calculate the last median
+         */
         double median = k % 2 == 0 ? ((double)minHeap.peek() + maxHeap.peek()) / 2.0 : minHeap.peek();
         res[index++] = median;
         return res;
