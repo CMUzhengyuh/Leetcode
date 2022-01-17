@@ -4,11 +4,14 @@ import java.util.Deque;
  * Leetcode 302 - Smallest Rectangle Enclosing Black Pixels
  */
 public class Leetcode302 {
+    /**
+     * BFS Solution
+     */
     int[][] dir = new int[][]{{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
 
     int[] res = new int[4];
 
-    public int minArea(char[][] image, int x, int y) {
+    public int minAreaBFS(char[][] image, int x, int y) {
         res[0] = x;
         res[1] = x;
         res[2] = y;
@@ -37,14 +40,98 @@ public class Leetcode302 {
         return (res[1] - res[0] + 1) * (res[3] - res[2] + 1);
     }
 
+    /**
+     * Binary Search Solution
+     */
+    public int minAreaBinarySearch(char[][] image, int x, int y) {
+        /**
+         * Search for the boundary of rows / columns with black pixels
+         */
+        int leftX = 0, rightX = 0, leftY = 0, rightY = 0;
+        /**
+         * Leftmost column
+         */
+        int left = 0, right = x;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            boolean hasBlackPixel = false;
+            for (int j = 0; j < image[0].length; j++) {
+                hasBlackPixel |= image[mid][j] == '1';
+            }
+            if (hasBlackPixel) {
+                leftX = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        /**
+        * Rightmost column
+        */
+        left = x;
+        right = image.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            boolean hasBlackPixel = false;
+            for (int j = 0; j < image[0].length; j++) {
+                hasBlackPixel |= image[mid][j] == '1';
+            }
+            if (hasBlackPixel) {
+                rightX = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        /**
+         * Leftmost row
+         */
+        left = 0;
+        right = y;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            boolean hasBlackPixel = false;
+            for (int i = 0; i < image.length; i++) {
+                hasBlackPixel |= image[i][mid] == '1';
+            }
+            if (hasBlackPixel) {
+                leftY = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        /**
+         * Rightmost row
+         */
+        left = y;
+        right = image[0].length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            boolean hasBlackPixel = false;
+            for (int i = 0; i < image.length; i++) {
+                hasBlackPixel |= image[i][mid] == '1';
+            }
+            if (hasBlackPixel) {
+                rightY = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return (rightX - leftX + 1) * (rightY - leftY + 1);
+
+    }
+
     public static void main(String[] args) {
         Leetcode302 Solution = new Leetcode302();
 
         char[][] test1Image = new char[][]{{'0', '0', '1', '0'}, {'0', '1', '1', '0'},{'0', '1', '0', '0'}};
-        System.out.println(Solution.minArea(test1Image, 0, 2));
+        System.out.println(Solution.minAreaBFS(test1Image, 0, 2));
 
         char[][] test2Image = new char[][]{{'0', '1', '0'}};
-        System.out.println(Solution.minArea(test2Image, 0, 1));
+        System.out.println(Solution.minAreaBinarySearch(test1Image, 0, 2));
 
 
     }
