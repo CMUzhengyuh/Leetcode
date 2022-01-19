@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 /**
- * 4th - Leetcode 56 - Merge Intervals
+ * 5th - Leetcode 56 - Merge Intervals
  */
 public class MergeIntervals {
     /**
