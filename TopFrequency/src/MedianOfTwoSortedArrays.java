@@ -1,5 +1,5 @@
 /**
- * 7th - Leetcode 4 - Median of Two Sorted Arrays
+ * 7th - Leetcode 4 - Median of Two Sorted Arrays ***
  */
 public class MedianOfTwoSortedArrays {
     /**
@@ -46,28 +46,51 @@ public class MedianOfTwoSortedArrays {
     public double findMedianSortedArraysBinarySearch(int[] nums1, int[] nums2) {
         int m = nums1.length, n = nums2.length;
         /**
-         * midLeft = midRight when m + n % 2 == 1
+         * Numbers of elements to reach the right median
          */
-        int midLeft = (m + n + 1) / 2, midRight = (m + n + 2) / 2;
-        return (getKthElement(nums1, 0, nums2, 0, midLeft) +
-                getKthElement(nums1, 0, nums2, 0, midRight)) / 2.0;
-    }
-
-    public double getKthElement(int[] nums1, int a, int[] nums2, int b, int k) {
+        int k = (m + n) / 2, p1, p2;
         /**
-         * One pointer reach the end
+         * Left and right pointer in nums1
          */
-        if (a > nums1.length - 1) return nums2[b + k - 1];
-        if (b > nums2.length - 1) return nums1[a + k - 1];
-        if (k == 1) return Math.min(nums1[a], nums2[b]);
-
-        int aMid = Integer.MAX_VALUE, bMid = Integer.MAX_VALUE;
-        if (a + k / 2 - 1 < nums1.length) aMid = nums1[a + k / 2 - 1];
-        if (b + k / 2 - 1 < nums2.length) bMid = nums2[b + k / 2 - 1];
-
-        if (aMid < bMid)
-            return getKthElement(nums1, a + k / 2, nums2, b, k - k / 2);
-        else
-            return getKthElement(nums1, a, nums2, b + k / 2, k - k / 2);
+        int left = 0, right = Math.min(k, m);
+        /**
+         * Binary Search
+         */
+        while (true) {
+            /**
+             * p1 points to the middle position in nums1
+             */
+            p1 = left + (right - left) / 2;
+            /**
+             * p2 points to the position in nums2 so that p1 + p2 = k
+             */
+            p2 = k - p1;
+            if (getIfExist(nums1, p1) >= getIfExist(nums2, p2 - 1)) {
+                /**
+                 * nums1[p1 - 1] <= nums2[p2] && nums2[p2 - 1] <= nums1[p1] -> p1 & p2 should stop
+                 */
+                if (getIfExist(nums2, p2) >= getIfExist(nums1, p1 - 1))
+                    break;
+                else right = p1 - 1;
+            }
+            else left = p1 + 1;
+        }
+        if ((m + n) % 2 == 1)
+            return Math.min(getIfExist(nums1, p1), getIfExist(nums2, p2));
+        /**
+         * Even number of elements
+         */
+        return (double)(Math.min(getIfExist(nums1, p1), getIfExist(nums2, p2)) +
+                        Math.max(getIfExist(nums1, p1 - 1), getIfExist(nums2,p2 - 1))) / 2;
+    }
+    /**
+     * If index is valid return the value
+     */
+    private int getIfExist(int[] nums, int i) {
+        if (i < 0)
+            return Integer.MIN_VALUE;
+        if (i >= nums.length)
+            return Integer.MAX_VALUE;
+        return nums[i];
     }
 }
