@@ -1,3 +1,9 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+/**
+ * 6th - Leetcode 200 - Number of Islands
+ */
 public class NumberOfIslands {
     /**
      * Solution 1: Union Find
@@ -17,7 +23,7 @@ public class NumberOfIslands {
         unionFind[find(j)] = unionFind[find(i)];
     }
 
-    public int numIslands(char[][] grid) {
+    public int numIslandsUnionFind(char[][] grid) {
         /**
          * Initialize the number of islands as m * n
          */
@@ -50,6 +56,100 @@ public class NumberOfIslands {
                         union(cur, up);
                         res--;
                     }
+                }
+            }
+        }
+        return res;
+    }
+
+    /**
+     * Solution 2: Depth First Search
+     * TC: O(mn)
+     * SC: O(mn)
+     */
+    private int res;
+
+    public int numIslandsDFS(char[][] grid) {
+        res = 0;
+        /**
+         * Loop for each position to start DFS
+         */
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == '1') {
+                    res++;
+                    DFS(grid, i, j);
+                }
+            }
+        }
+        return res;
+    }
+
+    private void DFS(char[][] grid, int i, int j) {
+        if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] == '0') {
+            return;
+        }
+        /**
+         * Convert '1' to '0' as visited
+         */
+        grid[i][j] = '0';
+        /**
+         * Four directions
+         */
+        DFS(grid, i + 1, j);
+        DFS(grid, i - 1, j);
+        DFS(grid, i, j + 1);
+        DFS(grid, i, j - 1);
+    }
+
+    /**
+     * Solution 3: Breadth First Search
+     * TC: O(mn)
+     * SC: O(mn)
+     */
+    private int[][] dir = new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
+    public int numIslandsBFS(char[][] grid) {
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        int m = grid.length, n = grid[0].length;
+        res = 0;
+        /**
+         * Queue for BFS
+         */
+        Deque<Integer> deque = new ArrayDeque<>();
+        /**
+         * Loop for each position to start BFS
+         */
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (!visited[i][j] && grid[i][j] == '1') {
+                    /**
+                     * Start point: unvisited '1'
+                     */
+                    deque.addLast(i * n + j);
+                    visited[i][j] = true;
+                    while (!deque.isEmpty()) {
+                        int size = deque.size();
+                        int index = deque.pollFirst();
+                        /**
+                         * Loop for current layer
+                         */
+                        while (size-- > 0) {
+                            /**
+                             * Four directions
+                             */
+                            for (int f = 0; f < 4; f++) {
+                                int newX = (index / n) + dir[f][0], newY = (index % n) + dir[f][1];
+                                if (newX >= 0 && newY >= 0 && newX < m && newY < n && !visited[newX][newY]) {
+                                    visited[newX][newY] = true;
+                                    if (grid[newX][newY] == '1') {
+                                        deque.addLast(newX * n + newY);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    res++;
                 }
             }
         }
