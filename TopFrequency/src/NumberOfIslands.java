@@ -1,6 +1,5 @@
 import java.util.ArrayDeque;
 import java.util.Deque;
-
 /**
  * 6th - Leetcode 200 - Number of Islands
  */
