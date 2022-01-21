@@ -46,7 +46,7 @@ public class MinimumRemoveToMakeValidParentheses {
         }
         return sb.toString();
     }
-    
+
     /**
      * Solution 2: Breadth First Search
      * Time Limit Exceeded
