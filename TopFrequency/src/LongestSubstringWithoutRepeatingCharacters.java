@@ -3,7 +3,7 @@
  */
 public class LongestSubstringWithoutRepeatingCharacters {
     /**
-     * Solution: HashTable
+     * Solution: Sliding Window
      * TC: O(n)
      * SC: O(n)
      */
